@@ -1,6 +1,7 @@
 "use strict";
 
 const STORAGE_KEY = "todo-habit-app-v1";
+const THEME_KEY = "todo-habit-app-theme";
 const SUGGESTIONS = ["Wasser trinken", "10 Minuten lesen", "Spazieren gehen"];
 const WEEKDAYS = {
   sonntag: 0, montag: 1, dienstag: 2, mittwoch: 3,
@@ -507,5 +508,40 @@ habitForm.addEventListener("submit", () => {
 document.getElementById("week-prev").addEventListener("click", () => { weekOffset--; renderWeek(); });
 document.getElementById("week-next").addEventListener("click", () => { weekOffset++; renderWeek(); });
 document.getElementById("week-now").addEventListener("click", () => { weekOffset = 0; renderWeek(); });
+
+/* ---------- Dark Mode ---------- */
+
+// Liest das gespeicherte Design. Standard ist dunkel.
+function loadTheme() {
+  try {
+    return localStorage.getItem(THEME_KEY) === "light" ? "light" : "dark";
+  } catch (e) {
+    return "dark";
+  }
+}
+
+// Setzt das Design auf der Seite und beschriftet den Schalter.
+function applyTheme(theme) {
+  const btn = document.getElementById("theme-toggle");
+  document.documentElement.setAttribute("data-theme", theme);
+  btn.textContent = theme === "dark" ? "☀️" : "🌙";
+  const label = theme === "dark" ? "Zum hellen Design wechseln" : "Zum dunklen Design wechseln";
+  btn.setAttribute("aria-label", label);
+  btn.title = label;
+}
+
+// Wechselt zwischen dunkel und hell und speichert die Wahl.
+function toggleTheme() {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  applyTheme(next);
+  try {
+    localStorage.setItem(THEME_KEY, next);
+  } catch (e) {
+    /* Speichern nicht möglich, die Wahl gilt nur für diese Sitzung. */
+  }
+}
+
+document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+applyTheme(loadTheme());
 
 render();
