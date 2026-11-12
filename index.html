@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heute</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p id="date" class="muted"></p>
+        <h1>Heute</h1>
+      </div>
+      <div id="ring" class="ring" aria-label="Fortschritt">
+        <span id="ring-text"></span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <h2>Habits</h2>
+        <button id="add-habit" class="ghost" aria-label="Habit hinzufügen">+ Habit</button>
+      </div>
+      <div id="habits" class="habits"></div>
+    </section>
+
+    <section>
+      <h2>To-dos</h2>
+      <form id="todo-form">
+        <input id="todo-input" type="text" autocomplete="off"
+               placeholder="Neue Aufgabe, z. B. „Morgen Zahnarzt anrufen“">
+        <input id="todo-date" type="date" aria-label="Datum (optional)" title="Datum (optional)">
+      </form>
+      <h3>Heute</h3>
+      <ul id="todos-today" class="todos"></ul>
+      <h3>Demnächst</h3>
+      <ul id="todos-soon" class="todos"></ul>
+      <details id="done-wrap">
+        <summary>Erledigt (<span id="done-count">0</span>)</summary>
+        <ul id="todos-done" class="todos"></ul>
+      </details>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Woche</h2>
+        <div class="week-nav">
+          <button id="week-prev" class="ghost" aria-label="Vorherige Woche">‹</button>
+          <button id="week-now" class="ghost">Heute</button>
+          <button id="week-next" class="ghost" aria-label="Nächste Woche">›</button>
+        </div>
+      </div>
+      <p id="week-label" class="muted"></p>
+      <p class="legend">
+        <span class="tag habit on">Habit</span>
+        <span class="tag todo on">To-do</span>
+      </p>
+      <div id="week" class="week"></div>
+    </section>
+  </main>
+
+  <dialog id="habit-dialog">
+    <form id="habit-form" method="dialog">
+      <h2>Neue Gewohnheit</h2>
+      <label>Name
+        <input id="habit-name" type="text" required autocomplete="off" placeholder="z. B. Wasser trinken">
+      </label>
+      <label>Wie oft?
+        <select id="habit-freq">
+          <option value="7">Täglich</option>
+          <option value="6">6× pro Woche</option>
+          <option value="5">5× pro Woche</option>
+          <option value="4">4× pro Woche</option>
+          <option value="3">3× pro Woche</option>
+          <option value="2">2× pro Woche</option>
+          <option value="1">1× pro Woche</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" id="habit-cancel" class="ghost">Abbrechen</button>
+        <button type="submit">Anlegen</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
